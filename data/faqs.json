@@ -1,0 +1,93 @@
+
+[
+  {
+    "id": "FAQ001",
+    "question": "What is your delivery time?",
+    "answer": "Standard delivery usually takes 3 to 5 business days.",
+    "category": "delivery"
+  },
+  {
+    "id": "FAQ002",
+    "question": "What is your return policy?",
+    "answer": "Eligible products can be returned within 14 days of delivery, subject to the store's return conditions.",
+    "category": "returns"
+  },
+  {
+    "id": "FAQ003",
+    "question": "Can I get a refund?",
+    "answer": "Refund requests are reviewed according to the store's refund policy. The customer support team must review individual refund requests before a refund is approved.",
+    "category": "refunds"
+  },
+  {
+    "id": "FAQ004",
+    "question": "What payment methods do you accept?",
+    "answer": "Customers can pay using cash on delivery or the electronic payment methods offered at checkout.",
+    "category": "payments"
+  },
+  {
+    "id": "FAQ005",
+    "question": "How can I track my order?",
+    "answer": "Provide your order ID so the system can check the current order status.",
+    "category": "orders"
+  },
+  {
+    "id": "FAQ006",
+    "question": "What should I do if my product is damaged?",
+    "answer": "Report the damaged product to customer support so the team can review the issue and explain the available options.",
+    "category": "complaints"
+  },
+  {
+    "id": "FAQ007",
+    "question": "Can I cancel my order?",
+    "answer": "Order cancellation requests must be reviewed according to the order's current status and the store's cancellation policy.",
+    "category": "orders"
+  },
+  {
+    "id": "FAQ008",
+    "question": "Do you offer international shipping?",
+    "answer": "International shipping availability has not been established in the current knowledge base. Contact customer support for confirmation.",
+    "category": "delivery"
+  },
+  {
+    "id": "FAQ009",
+    "question": "How do I contact customer support?",
+    "answer": "You can request a handoff to a human customer support representative through this assistant.",
+    "category": "support"
+  },
+  {
+    "id": "FAQ010",
+    "question": "Can I change my delivery address?",
+    "answer": "Address change requests must be reviewed against the current order status. Contact customer support for assistance.",
+    "category": "delivery"
+  },
+  {
+    "id": "FAQ011",
+    "question": "What if my order is delayed?",
+    "answer": "The order status should be checked first. If the delivery remains delayed or requires investigation, the issue should be referred to customer support.",
+    "category": "delivery"
+  },
+  {
+    "id": "FAQ012",
+    "question": "Can I exchange a product?",
+    "answer": "Exchange requests must be reviewed by customer support according to the store's applicable conditions.",
+    "category": "returns"
+  },
+  {
+    "id": "FAQ013",
+    "question": "What happens if I receive the wrong product?",
+    "answer": "Report the issue to customer support so the team can investigate and explain the available resolution options.",
+    "category": "complaints"
+  },
+  {
+    "id": "FAQ014",
+    "question": "Can you guarantee a delivery date?",
+    "answer": "The assistant cannot guarantee a delivery date. It can communicate the available estimated delivery information when provided by the order system.",
+    "category": "delivery"
+  },
+  {
+    "id": "FAQ015",
+    "question": "Can the assistant approve a refund?",
+    "answer": "No. The assistant can explain the documented refund process, but individual refund approvals must be handled by authorized customer support staff.",
+    "category": "refunds"
+  }
+]
