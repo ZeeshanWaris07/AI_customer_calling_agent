@@ -100,7 +100,7 @@ def get_faq_retriever():
     return get_vector_store().as_retriever(
         search_type = 'similarity',
         search_kwargs = {
-            'k' : 3
+            'k' : 4
         },
     )
 
