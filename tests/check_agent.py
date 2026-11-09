@@ -1,6 +1,6 @@
 
 import app.agent as agent
-
+from datetime import date
 
 def mock_intent(monkeypatch, intent):
     monkeypatch.setattr(
@@ -36,6 +36,17 @@ def test_faq(monkeypatch):
 def test_order_status(monkeypatch):
     mock_intent(monkeypatch, "order_status")
 
+    monkeypatch.setattr(
+        agent,
+        "get_order_by_id",
+        lambda order_id: {
+            "order_id": "ORD-1001",
+            "customer_id": "CUST-001",
+            "status": "Shipped",
+            "estimated_delivery": date(2026, 10, 30),
+        },
+    )
+
     result = agent.process_message(
         agent.AgentRequest(
             message="Check order ORD-1001"
@@ -44,7 +55,9 @@ def test_order_status(monkeypatch):
 
     assert result.intent == "order_status"
     assert "shipped" in result.response.lower()
+    assert "2026-10-30" in result.response
     assert result.outcome == "resolved"
+
 
 
 def test_missing_order_id(monkeypatch):

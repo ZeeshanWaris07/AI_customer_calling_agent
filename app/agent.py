@@ -11,7 +11,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from pydantic import BaseModel, Field
 from app.knowledge_base import retrieve_faqs
 from app.prompts import FAQ_ANSWER_PROMPT,INTENT_CLASSIFICATION_PROMPT
-from app.database import load_faqs, load_orders
+from app.database import load_faqs, get_order_by_id
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -96,6 +96,7 @@ def classify_intent(message: str) -> IntentClassification:
 
 
 
+
 def handle_order_status(message: str) -> tuple[str, Outcome]:
     match = re.search(
         r"\bORD-\d{4}\b",
@@ -112,18 +113,11 @@ def handle_order_status(message: str) -> tuple[str, Outcome]:
 
     order_id = match.group().upper()
 
-    order = next(
-        (
-            item
-            for item in load_orders()
-            if item["order_id"].upper() == order_id
-        ),
-        None,
-    )
+    order = get_order_by_id(order_id)
 
     if order is None:
         return (
-            f"I couldn't find order {order_id} in our demo records. "
+            f"I couldn't find order {order_id} in our records. "
             "Please check the order ID.",
             "needs_clarification",
         )
@@ -133,14 +127,16 @@ def handle_order_status(message: str) -> tuple[str, Outcome]:
         f"{order['status'].lower()}."
     )
 
-    estimated_delivery = order.get("estimated_delivery")
+    estimated_delivery = order["estimated_delivery"]
 
     if estimated_delivery:
         response += (
-            f" Its estimated delivery date is {estimated_delivery}."
+            f" Its estimated delivery date is "
+            f"{estimated_delivery.isoformat()}."
         )
 
     return response, "resolved"
+
 
 
 def process_message(request: AgentRequest) -> AgentResponse:
