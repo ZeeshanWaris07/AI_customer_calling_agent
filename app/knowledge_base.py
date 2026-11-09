@@ -55,22 +55,19 @@ def load_faq_documents() -> list[Document]:
 
 @lru_cache(maxsize=1)
 def get_embedding_model() -> HuggingFaceEmbeddings:
-    return HuggingFaceEmbeddings(
-        model_name=EMBEDDING_MODEL_NAME,
-        model_kwargs={
-            "device": "cpu"
-        },
-        encode_kwargs={
-            "normalize_embeddings": True
-        },
-        query_encode_kwargs={
-            "normalize_embeddings": True,
-            "prompt": (
-                "Represent this sentence for searching "
-                "relevant passages: "
-            ),
-        },
-    )
+
+    model = HuggingFaceEmbeddings(
+            model_name="BAAI/bge-small-en-v1.5",
+            model_kwargs={
+                "device": "cpu"
+            },
+            encode_kwargs={
+                "normalize_embeddings": True
+            },
+        )
+
+
+    return model
 
 
 @lru_cache(maxsize=1)
@@ -98,3 +95,23 @@ def index_faq_documents() -> int:
     )
 
     return len(documents)
+
+def get_faq_retriever():
+    return get_vector_store().as_retriever(
+        search_type = 'similarity',
+        search_kwargs = {
+            'k' : 3
+        },
+    )
+
+def retrieve_faqs(query:str) -> list[Document]:
+    query = query.strip()
+
+    if not query:
+        raise ValueError("Search query cannot be empty")
+
+    retriever = get_faq_retriever()
+
+    print("retriever returned")
+
+    return retriever.invoke(query)
