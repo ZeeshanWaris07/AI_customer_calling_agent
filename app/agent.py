@@ -66,7 +66,7 @@ def get_intent_classifier():
         )
 
     llm = ChatGoogleGenerativeAI(
-        model=os.getenv("GEMINI_MODEL", "gemini-3.6-flash"),
+        model=os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite"),
         api_key=api_key,
         temperature=0,
     )

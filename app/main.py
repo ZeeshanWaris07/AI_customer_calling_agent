@@ -1,5 +1,6 @@
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.agent import AgentRequest, AgentResponse, process_message
 
@@ -8,6 +9,16 @@ app = FastAPI(
     title="ShopEase AI Customer Calling Agent",
     description="An AI-powered customer support assistant.",
     version="1.0.0",
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "*"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 
