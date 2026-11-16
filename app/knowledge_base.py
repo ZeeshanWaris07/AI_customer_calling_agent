@@ -1,7 +1,7 @@
 
 from functools import lru_cache
 from pathlib import Path
-
+from time import perf_counter
 from langchain_core.documents import Document
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
@@ -56,27 +56,43 @@ def load_faq_documents() -> list[Document]:
 @lru_cache(maxsize=1)
 def get_embedding_model() -> HuggingFaceEmbeddings:
 
-    model = HuggingFaceEmbeddings(
-            model_name="BAAI/bge-small-en-v1.5",
-            model_kwargs={
-                "device": "cpu"
-            },
-            encode_kwargs={
-                "normalize_embeddings": True
-            },
-        )
+    started = perf_counter()
 
+    model = HuggingFaceEmbeddings(
+        model_name=EMBEDDING_MODEL_NAME,
+        model_kwargs={"device": "cpu"},
+        encode_kwargs={"normalize_embeddings": True},
+    )
+
+    elapsed = perf_counter() - started
+
+    print(
+        f"[LATENCY] BGE model loading: {elapsed:.3f}s",
+        flush=True,
+    )
 
     return model
 
 
 @lru_cache(maxsize=1)
 def get_vector_store() -> Chroma:
-    return Chroma(
+
+    started = perf_counter()
+
+    vector_store = Chroma(
         collection_name=FAQ_COLLECTION_NAME,
         embedding_function=get_embedding_model(),
         persist_directory=str(CHROMA_DB_DIR),
     )
+
+    elapsed = perf_counter() - started
+
+    print(
+        f"[LATENCY] ChromaDB initialization: {elapsed:.3f}s",
+        flush=True,
+    )
+
+    return vector_store
 
 
 def index_faq_documents() -> int:
@@ -96,22 +112,31 @@ def index_faq_documents() -> int:
 
     return len(documents)
 
+@lru_cache(maxsize=1)
 def get_faq_retriever():
     return get_vector_store().as_retriever(
-        search_type = 'similarity',
-        search_kwargs = {
-            'k' : 4
-        },
+        search_type="similarity",
+        search_kwargs={"k": 4},
     )
 
-def retrieve_faqs(query:str) -> list[Document]:
+
+def retrieve_faqs(query: str) -> list[Document]:
+
     query = query.strip()
 
     if not query:
-        raise ValueError("Search query cannot be empty")
+        raise ValueError("Search query cannot be empty.")
+
+    started = perf_counter()
 
     retriever = get_faq_retriever()
+    documents = retriever.invoke(query)
 
-    print("retriever returned")
+    elapsed = perf_counter() - started
 
-    return retriever.invoke(query)
+    print(
+        f"[LATENCY] FAQ retrieval (embedding + ChromaDB): {elapsed:.3f}s",
+        flush=True,
+    )
+
+    return documents

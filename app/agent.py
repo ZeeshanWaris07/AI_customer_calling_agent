@@ -12,7 +12,7 @@ from pydantic import BaseModel, Field
 from app.knowledge_base import retrieve_faqs
 from app.prompts import FAQ_ANSWER_PROMPT,INTENT_CLASSIFICATION_PROMPT
 from app.database import load_faqs, get_order_by_id
-
+from time import perf_counter
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 load_dotenv(PROJECT_ROOT / ".env")
@@ -49,6 +49,15 @@ class AgentResponse(BaseModel):
 class IntentClassification(BaseModel):
     intent: Intent
 
+    order_id: Optional[str] = Field(
+        default=None,
+        description=(
+            "Extracted order ID in canonical format ORD-1234. "
+            "Must be null when intent is not order_status "
+            "or when no order ID can be confidently identified."
+        ),
+    )
+
 
 class FAQAnswer(BaseModel):
     supported_by_context: bool
@@ -68,7 +77,6 @@ def get_intent_classifier():
     llm = ChatGoogleGenerativeAI(
         model=os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite"),
         api_key=api_key,
-        temperature=0,
     )
 
     return llm.with_structured_output(
@@ -78,40 +86,59 @@ def get_intent_classifier():
 
 
 def classify_intent(message: str) -> IntentClassification:
-    message = message.strip()
+    started = perf_counter()
 
-    if not message:
-        raise ValueError("Customer message cannot be empty.")
+    try:
+        message = message.strip()
 
-    prompt = INTENT_CLASSIFICATION_PROMPT.format_messages(
-        message = message
-    )
+        if not message:
+            raise ValueError("Customer message cannot be empty.")
 
-    result = get_intent_classifier().invoke(prompt)
+        prompt = INTENT_CLASSIFICATION_PROMPT.format_messages(
+            message=message
+        )
 
-    if isinstance(result, IntentClassification):
-        return result
+        result = get_intent_classifier().invoke(prompt)
 
-    return IntentClassification.model_validate(result)
+        if isinstance(result, IntentClassification):
+            return result
+
+        return IntentClassification.model_validate(result)
+
+    finally:
+        elapsed = perf_counter() - started
+        print(
+            f"[LATENCY] Intent classification: {elapsed:.3f}s",
+            flush=True,
+        )
 
 
 
 
-def handle_order_status(message: str) -> tuple[str, Outcome]:
-    match = re.search(
-        r"\bORD-\d{4}\b",
-        message,
-        flags=re.IGNORECASE,
-    )
+def handle_order_status(
+    order_id: Optional[str],
+) -> tuple[str, Outcome]:
 
-    if not match:
+    if not order_id:
         return (
-            "Please provide your order ID, such as ORD-1001, "
+            "Please provide your order ID, such as 1002, "
             "so I can check the order status.",
             "needs_clarification",
         )
 
-    order_id = match.group().upper()
+    order_id = order_id.strip().upper()
+
+    # Normalize four-digit IDs.
+    if re.fullmatch(r"\d{4}", order_id):
+        order_id = f"ORD-{order_id}"
+
+    # Validate the canonical order ID.
+    elif not re.fullmatch(r"ORD-\d{4}", order_id):
+        return (
+            "I couldn't clearly identify your order ID. "
+            "Please provide your four-digit order number.",
+            "needs_clarification",
+        )
 
     order = get_order_by_id(order_id)
 
@@ -156,7 +183,9 @@ def process_message(request: AgentRequest) -> AgentResponse:
         response,outcome = handle_faq_question(message)
 
     elif intent == "order_status":
-        response, outcome = handle_order_status(message)
+        response, outcome = handle_order_status(
+            classification.order_id
+        )
 
     elif intent in ("complaint", "human_handoff"):
         response = (
@@ -192,9 +221,8 @@ def get_faq_answerer():
         )
 
     llm = ChatGoogleGenerativeAI(
-        model=os.getenv("GEMINI_MODEL", "gemini-3.6-flash"),
+        model=os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite"),
         api_key=api_key,
-        temperature=0,
     )
 
     return llm.with_structured_output(
@@ -237,12 +265,21 @@ def handle_faq_question(
 
     answerer = get_faq_answerer()
 
-    result = answerer.invoke(
-        FAQ_ANSWER_PROMPT.format_messages(
-            question=question,
-            context=context,
+    generation_started = perf_counter()
+
+    try:
+        result = answerer.invoke(
+            FAQ_ANSWER_PROMPT.format_messages(
+                question=question,
+                context=context,
+            )
         )
-    )
+    finally:
+        elapsed = perf_counter() - generation_started
+        print(
+            f"[LATENCY] Gemini FAQ generation: {elapsed:.3f}s",
+            flush=True,
+        )
 
     if not isinstance(result, FAQAnswer):
         result = FAQAnswer.model_validate(result)
