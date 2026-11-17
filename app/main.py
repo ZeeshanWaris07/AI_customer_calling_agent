@@ -46,7 +46,7 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://YOUR-FRONTEND.vercel.app",
+        "https://shopease-frontend-5k47kybs9-ghostop-s-projects.vercel.app",
         "http://localhost:5173",
         "http://127.0.0.1:5173",
     ],
