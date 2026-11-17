@@ -1,0 +1,17 @@
+# FastAPI application server
+fastapi>=0.115,<1.0
+uvicorn[standard]>=0.34,<1.0
+
+# Environment variables and Neon PostgreSQL
+python-dotenv>=1.0,<2.0
+psycopg[binary]>=3.2,<4.0
+
+# LangChain + Gemini
+langchain-core>=0.3,<2.0
+langchain-google-genai>=2.0,<5.0
+
+# Local RAG: BGE embeddings + Chroma vector database
+langchain-huggingface>=0.1,<2.0
+langchain-chroma>=0.2,<2.0
+sentence-transformers>=3.4,<6.0
+chromadb>=0.6,<2.0
