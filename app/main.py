@@ -1,35 +1,56 @@
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.agent import AgentRequest, AgentResponse, process_message
-from contextlib import asynccontextmanager
-from app.knowledge_base import get_faq_retriever
+from app.knowledge_base import (
+    index_faq_documents,
+    get_faq_retriever,
+    get_vector_store,
+)
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
 
     print("[STARTUP] Loading FAQ resources...", flush=True)
 
+    # Load FAQs and generate embeddings.
+    total = index_faq_documents()
+
+    print(
+        f"[STARTUP] Successfully indexed {total} FAQs.",
+        flush=True,
+    )
+
+    # Initialize the retriever.
     get_faq_retriever()
 
-    print("[STARTUP] FAQ resources loaded successfully.", flush=True)
+    print(
+        "[STARTUP] FAQ retriever is ready.",
+        flush=True,
+    )
 
     yield
 
     print("[SHUTDOWN] Closing application.", flush=True)
+
 
 app = FastAPI(
     title="ShopEase API",
     lifespan=lifespan,
 )
 
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "*"
+        "https://YOUR-FRONTEND.vercel.app",
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
     ],
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
