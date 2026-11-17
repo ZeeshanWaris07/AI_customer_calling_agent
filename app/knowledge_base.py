@@ -3,7 +3,7 @@ from functools import lru_cache
 from pathlib import Path
 from time import perf_counter
 from langchain_core.documents import Document
-from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_community.embeddings import FastEmbedEmbeddings
 from langchain_chroma import Chroma
 
 from app.database import load_faqs
@@ -15,7 +15,7 @@ EMBEDDING_MODEL_NAME = "BAAI/bge-small-en-v1.5"
 
 CHROMA_DB_DIR = PROJECT_ROOT / "chroma_db"
 
-FAQ_COLLECTION_NAME = "shopease_faqs"
+FAQ_COLLECTION_NAME = "shopease_faqs_fastembed"
 
 
 def load_faq_documents() -> list[Document]:
@@ -54,20 +54,22 @@ def load_faq_documents() -> list[Document]:
 
 
 @lru_cache(maxsize=1)
-def get_embedding_model() -> HuggingFaceEmbeddings:
+def get_embedding_model() -> FastEmbedEmbeddings:
 
     started = perf_counter()
 
-    model = HuggingFaceEmbeddings(
+    model = FastEmbedEmbeddings(
         model_name=EMBEDDING_MODEL_NAME,
-        model_kwargs={"device": "cpu"},
-        encode_kwargs={"normalize_embeddings": True},
+        cache_dir=str(PROJECT_ROOT / ".fastembed_cache"),
+        threads=1,
+        batch_size=4,
+        parallel=None,
     )
 
     elapsed = perf_counter() - started
 
     print(
-        f"[LATENCY] BGE model loading: {elapsed:.3f}s",
+        f"[LATENCY] FastEmbed model loading: {elapsed:.3f}s",
         flush=True,
     )
 
