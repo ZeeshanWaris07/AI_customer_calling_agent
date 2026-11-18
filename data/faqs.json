@@ -1,93 +1,122 @@
-
 [
   {
     "id": "FAQ001",
-    "question": "What is your delivery time?",
-    "answer": "Standard delivery usually takes 3 to 5 business days.",
+    "question": "How long does delivery take?",
+    "answer": "Standard delivery usually takes 3 to 5 business days. The delivery estimate can depend on the order's current status and the destination. If you have already placed an order, share your order ID and I can check its latest status and any estimated delivery date available in our order system. We do not guarantee an exact delivery date.",
     "category": "delivery"
   },
   {
     "id": "FAQ002",
     "question": "What is your return policy?",
-    "answer": "Eligible products can be returned within 14 days of delivery, subject to the store's return conditions.",
+    "answer": "Eligible products may be returned within 14 days of delivery, subject to ShopEase's return conditions. Before sending anything back, keep the product, its accessories and its original packaging together. Share your order ID and tell me which product you want to return so the request can be assessed against the applicable conditions. A return is not automatically approved just because it is requested within 14 days.",
     "category": "returns"
   },
   {
     "id": "FAQ003",
-    "question": "Can I get a refund?",
-    "answer": "Refund requests are reviewed according to the store's refund policy. The customer support team must review individual refund requests before a refund is approved.",
+    "question": "How do I request a refund?",
+    "answer": "Refund requests are reviewed according to ShopEase's refund policy. To help identify the order, provide your order ID and explain why you are requesting a refund, for example, a damaged item, an incorrect item or an eligible return. The request must be reviewed before a refund can be approved. I cannot promise approval or a refund processing time because a confirmed processing timeline is not currently available in the store's policy information.",
     "category": "refunds"
   },
   {
     "id": "FAQ004",
-    "question": "What payment methods do you accept?",
-    "answer": "Customers can pay using cash on delivery or the electronic payment methods offered at checkout.",
+    "question": "Which payment methods can I use?",
+    "answer": "ShopEase accepts cash on delivery and the electronic payment methods displayed during checkout. The available electronic options are the ones shown for your order at the time you place it. Do not share your full card number, PIN, password or one-time verification code in this chat.",
     "category": "payments"
   },
   {
     "id": "FAQ005",
     "question": "How can I track my order?",
-    "answer": "Provide your order ID so the system can check the current order status.",
+    "answer": "I can check the order information available in the ShopEase order system. Send your order ID, for example ORD-1001. I can then tell you whether the order is processing, shipped, delivered or cancelled, along with an estimated delivery date if one is recorded. The status shown is the latest information currently available to this assistant.",
     "category": "orders"
   },
   {
     "id": "FAQ006",
-    "question": "What should I do if my product is damaged?",
-    "answer": "Report the damaged product to customer support so the team can review the issue and explain the available options.",
+    "question": "What should I do if my product arrives damaged?",
+    "answer": "I'm sorry your product arrived damaged. Please stop using the item and keep the product, accessories, shipping box and packaging until the issue has been reviewed. Take clear photos of the damage and, if possible, the outside of the parcel and its shipping label. Share your order ID and briefly describe what is damaged. I can check the order status and help identify the next step. Any return, replacement or refund must be assessed under ShopEase's applicable conditions; I cannot approve one automatically.",
     "category": "complaints"
   },
   {
     "id": "FAQ007",
-    "question": "Can I cancel my order?",
-    "answer": "Order cancellation requests must be reviewed according to the order's current status and the store's cancellation policy.",
+    "question": "Can I cancel an order after placing it?",
+    "answer": "A cancellation request must be reviewed against the order's current status. Share your order ID and I can check whether the order is still processing, has shipped, or has another recorded status. I cannot guarantee that cancellation is possible until the request has been reviewed. If the order has already shipped, cancellation may no longer be available.",
     "category": "orders"
   },
   {
     "id": "FAQ008",
-    "question": "Do you offer international shipping?",
-    "answer": "International shipping availability has not been established in the current knowledge base. Contact customer support for confirmation.",
+    "question": "Do you deliver outside the country?",
+    "answer": "International shipping availability has not been confirmed in the ShopEase information currently available to me. I don't want to promise delivery to a destination that may not be supported. Please tell me the destination country so the store team can confirm whether delivery is available before you place an order.",
     "category": "delivery"
   },
   {
     "id": "FAQ009",
-    "question": "How do I contact customer support?",
-    "answer": "You can request a handoff to a human customer support representative through this assistant.",
+    "question": "How can I get help with a ShopEase order or problem?",
+    "answer": "You're already speaking with the ShopEase support assistant. Tell me what happened and include your order ID when the question relates to a purchase. I can explain store policies and check the order status recorded in our system. Requests that need a decision, such as approving a refund, arranging an exchange or investigating a delivery problem, require review by an authorized support representative.",
     "category": "support"
   },
   {
     "id": "FAQ010",
-    "question": "Can I change my delivery address?",
-    "answer": "Address change requests must be reviewed against the current order status. Contact customer support for assistance.",
+    "question": "Can I change my delivery address after ordering?",
+    "answer": "Address-change requests must be reviewed against the order's current status. Share your order ID and the correct delivery address through the store's approved support process. I can check the status recorded for your order, but I cannot edit the delivery address or confirm that a change has been made. A change may not be possible once the parcel has entered the shipping process.",
     "category": "delivery"
   },
   {
     "id": "FAQ011",
-    "question": "What if my order is delayed?",
-    "answer": "The order status should be checked first. If the delivery remains delayed or requires investigation, the issue should be referred to customer support.",
+    "question": "My order is delayed. What should I do?",
+    "answer": "Standard delivery usually takes 3 to 5 business days. First, share your order ID so I can check the current status and any estimated delivery date recorded in the order system. If the order is still within its displayed estimate, continue using that estimate as a guide. If the estimate has passed or the status has not changed, the delivery needs further review by the support team. I cannot provide a new delivery date unless one is available in the order system.",
     "category": "delivery"
   },
   {
     "id": "FAQ012",
-    "question": "Can I exchange a product?",
-    "answer": "Exchange requests must be reviewed by customer support according to the store's applicable conditions.",
+    "question": "Can I exchange a product for another size, colour or item?",
+    "answer": "Exchange requests are reviewed under ShopEase's applicable return and exchange conditions. Share your order ID, identify the product, and tell me what you would like instead, such as a different size or colour. An exchange is subject to review and availability; I cannot confirm that the requested replacement is in stock or approve the exchange automatically.",
     "category": "returns"
   },
   {
     "id": "FAQ013",
-    "question": "What happens if I receive the wrong product?",
-    "answer": "Report the issue to customer support so the team can investigate and explain the available resolution options.",
+    "question": "What should I do if I receive the wrong product?",
+    "answer": "I'm sorry you received an incorrect item. Please do not use the item, and keep its packaging, labels and any paperwork from the parcel. Compare the item received with your order confirmation, then share your order ID and explain what you ordered versus what arrived. Clear photos of the received item and its label can help the support team review the issue. Any replacement or refund will depend on the review and applicable store conditions.",
     "category": "complaints"
   },
   {
     "id": "FAQ014",
-    "question": "Can you guarantee a delivery date?",
-    "answer": "The assistant cannot guarantee a delivery date. It can communicate the available estimated delivery information when provided by the order system.",
+    "question": "Can you guarantee that my order will arrive on a specific date?",
+    "answer": "No. ShopEase cannot guarantee an exact delivery date. Standard delivery usually takes 3 to 5 business days, but this is an estimate rather than a guaranteed arrival date. If you provide your order ID, I can check the current order status and share the estimated delivery date recorded in our system, if available.",
     "category": "delivery"
   },
   {
     "id": "FAQ015",
-    "question": "Can the assistant approve a refund?",
-    "answer": "No. The assistant can explain the documented refund process, but individual refund approvals must be handled by authorized customer support staff.",
+    "question": "Can this assistant approve my refund?",
+    "answer": "No. I can explain the documented refund process and help identify the relevant order, but I cannot approve or issue a refund. Refund requests must be reviewed by authorized ShopEase support staff under the store's refund policy. Approval and processing time cannot be guaranteed by this assistant.",
     "category": "refunds"
+  },
+  {
+    "id": "FAQ016",
+    "question": "My order says delivered, but I haven't received it. What should I do?",
+    "answer": "Please first check whether someone at your delivery address, such as a family member, receptionist or building security desk, accepted the parcel for you. Also check the delivery location shown in your order details. If you still cannot find it, share your order ID with me. I can confirm the delivery status recorded in our system, but a parcel marked delivered that you have not received needs investigation by the support team. Do not mark the issue as resolved until you have located the parcel.",
+    "category": "delivery"
+  },
+  {
+    "id": "FAQ017",
+    "question": "An item is missing from my parcel. What should I do?",
+    "answer": "Please check the parcel contents and your order confirmation to identify exactly which item is missing. Keep the outer packaging and any packing slip, and take a photo of the items and documents that arrived. Share your order ID and the name of the missing product. The order and packing details need to be reviewed before ShopEase can confirm whether an item was missed or whether another resolution is appropriate.",
+    "category": "complaints"
+  },
+  {
+    "id": "FAQ018",
+    "question": "My payment was declined. What should I do?",
+    "answer": "Check that the payment method is supported at checkout and that the details you entered are correct. You can also try another payment method shown at checkout, including cash on delivery where it is offered for your order. If your bank or payment provider displays a decline message, contact them for the reason. Never send your full card number, PIN, password or one-time verification code in this chat.",
+    "category": "payments"
+  },
+  {
+    "id": "FAQ019",
+    "question": "My account was charged, but I did not receive an order confirmation. What should I do?",
+    "answer": "First check your order history and the email address used at checkout for an order confirmation. Avoid placing the same order again until you have checked whether the first order was created, so you do not accidentally submit a duplicate. Keep the payment reference or transaction receipt available. Share any order ID you received, but do not share card details, PINs or one-time verification codes in chat. Payment and order records may need to be checked together by the support team; I cannot confirm a payment settlement from the information currently available to me.",
+    "category": "payments"
+  },
+  {
+    "id": "FAQ020",
+    "question": "I haven't received an order confirmation email. What should I check?",
+    "answer": "Check the spam, junk and promotions folders in the email account you entered at checkout, and make sure the address was typed correctly. You can also check your ShopEase order history for the order. If payment was taken but no order appears, do not place the same order again until the first transaction has been checked. Keep your payment reference available and ask the support team to review the order and payment records. Never share your password or one-time verification code in this chat.",
+    "category": "orders"
   }
 ]
